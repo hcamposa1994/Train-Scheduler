@@ -51,12 +51,12 @@ database.ref().on("child_added", function(snapshot) {
     console.log(trainTime);
     console.log(trainFreq);
 
-    var firstTimeConverted = moment(firstTrainTime, "hh:mm").subtract(1, "years");
+    var firstTimeConverted = moment(trainTime, "hh:mm").subtract(1, "years");
     var diffTime = moment().diff(moment(firstTimeConverted), "minutes");
-    var tRemainder = diffTime % frequency;
-    var minutesTillTrain = frequency - tRemainder;
+    var tRemainder = diffTime % trainFreq;
+    var minutesTillTrain = trainFreq - tRemainder;
     var nextTrain = moment().add(minutesTillTrain, "minutes");
-    var nextTrainFormatted = moment(nextTrain).format("hh:mm");
+    var nextTrainFormatted = nextTrain.format("LT");
 
     // Create the new row
     var newRow = $("<tr>").append(
